@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+  <title>wtt · 轻量面板介绍</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #f6f9fc;
+      color: #1a2b3c;
+      line-height: 1.6;
+      padding: 1.5rem 1rem 3rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .page {
+      max-width: 1120px;
+      width: 100%;
+    }
+
+    /* hero 模块 —— 简洁直接 */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin: 1.8rem 0 2.2rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 2px solid #d0e3ed;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #1f7e8c;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      color: #0a2a33;
+      margin-bottom: 0.3rem;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: #2a4b5a;
+      max-width: 640px;
+      margin-top: 0.1rem;
+    }
+
+    .hero .tagline {
+      font-weight: 400;
+      color: #236d7a;
+      background: #dceef3;
+      padding: 0.2rem 1rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-top: 0.4rem;
+    }
+
+    /* 网格卡片布局 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.6rem;
+      margin: 2.2rem 0;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 1.8rem 1.4rem 1.6rem;
+      box-shadow: 0 4px 12px rgba(0, 40, 50, 0.04), 0 1px 3px rgba(0, 35, 45, 0.03);
+      border: 1px solid #e2edf2;
+      transition: box-shadow 0.2s, transform 0.1s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 20px rgba(0, 60, 75, 0.07);
+      border-color: #bdd7e0;
+    }
+
+    .card-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.3rem;
+      display: inline-block;
+      color: #1a7a8a;
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #14333d;
+      margin: 0.3rem 0 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: #2a4b5a;
+      margin-bottom: 0.2rem;
+      flex: 1;
+    }
+
+    .card .meta {
+      font-size: 0.8rem;
+      color: #608b99;
+      border-top: 1px solid #e3eef3;
+      padding-top: 0.7rem;
+      margin-top: 0.7rem;
+    }
+
+    .card .meta strong {
+      font-weight: 600;
+      color: #1d5968;
+    }
+
+    /* 使用建议 + 提示区 (混排) */
+    .insight-block {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.6rem;
+      background: #eaf3f7;
+      border-radius: 24px;
+      padding: 1.8rem 1.6rem;
+      margin: 2rem 0 2rem;
+      border: 1px solid #cddee6;
+    }
+
+    .insight-block .left {
+      flex: 2 1 240px;
+    }
+
+    .insight-block .right {
+      flex: 3 1 300px;
+    }
+
+    .insight-block h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #0e3945;
+      margin-bottom: 0.5rem;
+    }
+
+    .insight-block ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .insight-block ul li {
+      font-size: 0.95rem;
+      padding-left: 1.2rem;
+      position: relative;
+      color: #1b4351;
+    }
+
+    .insight-block ul li::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: #1e7a89;
+      font-weight: 600;
+    }
+
+    .insight-block .right p {
+      font-size: 0.95rem;
+      color: #1b4351;
+      margin-bottom: 0.5rem;
+    }
+
+    .note-tag {
+      background: #d7e5ec;
+      border-radius: 40px;
+      padding: 0.2rem 0.9rem;
+      font-size: 0.75rem;
+      color: #1c5a68;
+      font-weight: 500;
+      display: inline-block;
+      margin-right: 0.4rem;
+    }
+
+    /* FAQ 摘要 —— 简洁 */
+    .faq-mini {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem 2rem;
+      margin: 2.2rem 0 1.6rem;
+      padding: 0.2rem 0;
+    }
+
+    .faq-item {
+      padding: 0.2rem 0;
+    }
+
+    .faq-item .q {
+      font-weight: 600;
+      color: #14333d;
+      font-size: 0.95rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .faq-item .a {
+      font-size: 0.9rem;
+      color: #2d5d6b;
+      line-height: 1.5;
+    }
+
+    /* 链接句子 */
+    .link-sentence {
+      background: white;
+      padding: 1.2rem 1.6rem;
+      border-radius: 60px;
+      border: 1px solid #d4e2ea;
+      margin: 1.8rem 0 2.2rem;
+      font-size: 1rem;
+      color: #1f4b58;
+      display: inline-block;
+      width: auto;
+      max-width: 100%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    .link-sentence a {
+      color: #0f6d7c;
+      text-decoration: underline;
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 3px;
+      font-weight: 550;
+      background: #e6f1f5;
+      padding: 0 0.3rem;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+
+    .link-sentence a:hover {
+      background: #c7dde7;
+      text-decoration-color: #094a57;
+    }
+
+    /* 可信说明 footer 风格 */
+    .credible-note {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: #3e6978;
+      background: #edf4f8;
+      border-radius: 30px;
+      padding: 0.7rem 1.4rem;
+      margin: 2rem 0 0.6rem;
+      border: 1px solid #ccdde6;
+    }
+
+    .credible-note span {
+      opacity: 0.9;
+    }
+
+    .credible-note small {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #cbdbe5;
+      margin: 2.5rem 0 0.8rem;
+      opacity: 0.6;
+    }
+
+    .footer-meta {
+      font-size: 0.75rem;
+      color: #557a88;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: flex-start;
+    }
+
+    /* 移动端细节 */
+    @media (max-width: 480px) {
+      body { padding: 1rem 0.8rem 2.5rem; }
+      .hero h1 { font-size: 1.8rem; }
+      .hero p { font-size: 1rem; }
+      .card { padding: 1.4rem 1.2rem; }
+      .insight-block { padding: 1.4rem 1rem; }
+      .link-sentence { padding: 1rem 1.2rem; font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <!-- hero 区域：名称 + 摘要 -->
+  <div class="hero">
+    <span class="badge">服务面板 · 工具</span>
+    <h1>wtt · 统一面板说明</h1>
+    <p>面向轻度运维与日常配置的聚合面板，提供简洁的节点状态、资源管理与快速操作入口。</p>
+    <span class="tagline">集中 · 轻量 · 可配置</span>
+  </div>
+
+  <!-- 卡片网格：核心亮点 (差异化内容) -->
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">📋</div>
+      <h3>摘要视图</h3>
+      <p>登入后默认展示关键指标卡片：在线时长、流量概况、最近告警。减少跳转层级，信息密度适中。</p>
+      <div class="meta"><strong>适用</strong> · 日常状态总览</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚙️</div>
+      <h3>模块化布局</h3>
+      <p>支持自定义仪表板组件，用户可拖拽重组常用模块。面板基于角色权限，只显示已授权功能。</p>
+      <div class="meta"><strong>灵活</strong> · 按需配置</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔐</div>
+      <h3>凭证管理</h3>
+      <p>内置加密存储与一次性令牌机制，支持多账户快速切换。所有传输通过 TLS 加密，不记录明文密钥。</p>
+      <div class="meta"><strong>安全</strong> · 本地会话</div>
+    </div>
+  </div>
+
+  <!-- 使用建议 + 场景提示 (混合区块) -->
+  <div class="insight-block">
+    <div class="left">
+      <h2>使用建议</h2>
+      <ul>
+        <li>首次登录后建议检查通知频道与阈值配置</li>
+        <li>每项操作均记录审计日志，可追溯来源 IP</li>
+        <li>面板支持浅色/深色主题，于个人设置切换</li>
+        <li>建议定期更新令牌，降低重放风险</li>
+      </ul>
+    </div>
+    <div class="right">
+      <h2>场景与说明</h2>
+      <p><span class="note-tag">快速诊断</span> 在面板内直接 ping／traceroute 目标，无需额外工具。</p>
+      <p><span class="note-tag">脚本集成</span> 提供只读 API 端点，可嵌入监控流或内部工具。</p>
+      <p>面板本身不存储业务数据，所有展示信息来源于对接的服务端拉取。建议通过 <strong>wtt</strong> 官方文档了解字段释义与刷新策略。</p>
+    </div>
+  </div>
+
+  <!-- 自然嵌入链接的句子 (符合要求：文本严格等于 wtt) -->
+  <div class="link-sentence">
+    若需直接访问面板控制台，可前往 <a href="https://panel-wtt.com">wtt</a> ，并使用已授权账户登录。
+  </div>
+
+  <!-- FAQ 摘要 (差异化问题) -->
+  <div class="faq-mini">
+    <div class="faq-item">
+      <div class="q">面板是否支持多语言？</div>
+      <div class="a">当前界面为中文，英文版本正在内部测试；部分模块标题保留英文标识。</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">令牌过期后如何续期？</div>
+      <div class="a">在个人安全设置中可生成新令牌，旧令牌即刻失效。建议保留一个备用令牌。</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">能否隐藏不使用的卡片？</div>
+      <div class="a">可以。仪表板编辑模式下可隐藏／排序卡片，配置会保存至当前账户。</div>
+    </div>
+  </div>
+
+  <!-- 可信但克制的访问说明 (lower key) -->
+  <div class="credible-note">
+    <span>🔍 本页仅作产品介绍使用 · 实际面板功能以登录后版本为准</span>
+    <small>服务端部署于新加坡区域 · 连接采用 TLS 1.3</small>
+  </div>
+
+  <hr>
+
+  <div class="footer-meta">
+    <span>© 介绍页 · 非官方文档</span>
+    <span>更新于 2025-03</span>
+    <span>建议使用现代浏览器</span>
+  </div>
+</div>
+</body>
+</html>
